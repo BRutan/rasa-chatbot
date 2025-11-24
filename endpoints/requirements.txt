@@ -1,0 +1,12 @@
+--only-binary=:all:
+argon2-cffi
+asyncpg
+exrex
+fastapi[standard]
+google-cloud-storage
+google-cloud-secret-manager
+gunicorn
+psycopg2-binary
+redis
+sqlalchemy==2.0.41
+tqdm

@@ -1,0 +1,75 @@
+version: "3.1"
+
+rules:
+  # General:
+  - rule: Greet user at session start
+    condition: # Applies only if not in a form/loop:
+      - active_loop: null
+    steps:
+      - intent: initiate_session
+      - action: utter_greet
+  - rule: Restart conversation
+    steps:
+      - intent: restart_conversation
+      - action: action_restart_conversation
+      - action: action_session_start
+      - action: utter_greet
+  - rule: Notify that input is irrelevant to purpose.
+    condition:
+      - active_loop: null
+    steps:
+    - intent: notify_irrelevant
+    - action: utter_unclear
+  # Users:
+  - rule: Submit user info form
+    steps:
+      - action: register_user_form
+      - active_loop: null
+      - action: action_load_user_info
+      - action: utter_load_user_information_form
+  - rule: Activate vendor registration form
+    condition:
+      - slot_was_set:
+        - needs_vendor_registration: true
+    steps:
+      - action: register_vendor_form
+      - active_loop: register_vendor_form
+  - rule: Submit vendor registration form
+    condition:
+      - active_loop: register_vendor_form
+    steps:
+      - action: register_vendor_form
+      - active_loop: null
+      - action: action_load_vendor_info
+      - action: utter_load_vendor_information_form
+  - rule: Check buyer registration before transaction submit
+    steps:
+    - intent: initiate_transaction
+    - action: action_check_buyer_registration
+    - active_loop: new_transaction_form
+    - action: new_transaction_form
+    - active_loop: null
+    - action: utter_load_transaction_form
+  # Transactions:
+  - rule: Submit transaction form
+    steps:
+      - active_loop: new_transaction_form
+      - action: new_transaction_form
+      - active_loop: null
+      - action: action_load_transaction_form
+      - action: utter_waiting
+  # Disputes:
+  - rule: Initialize dispute sequence
+    steps:
+      - intent: initiate_dispute
+      - action: action_check_transactions_and_open_dispute
+      - active_loop: dispute_form
+      - action: dispute_form
+      - active_loop: null
+  - rule: Run the dispute judgement on request.
+    condition:
+    - slot_was_set:
+        - dispute_id
+    steps:
+      - intent: check_dispute_status
+      - action: action_output_dispute_judgement

@@ -1,0 +1,14 @@
+google/flan-t5-base:
+  mode: text2text-generation
+facebook/bart-large-mnli:
+  mode: zero-shot-classification
+  candidate_labels: 
+   - finance
+   - transaction
+   - request
+   - greeting
+   - support
+mrm8488/bert-tiny-finetuned-sms-spam-detection:
+  mode: text-classification
+pile-of-law/legalbert-large-1.7M-1:
+  mode: feature-extraction

@@ -1,0 +1,100 @@
+services:
+  db:
+    container_name: db
+    image: db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    build:
+      context: .
+      dockerfile: ./db/Dockerfile
+      args: 
+        IS_LOCAL: 1
+    volumes:
+      - ./db/db_objects/:/docker-entrypoint-initdb.d/
+      - db-data:/var/lib/postgresql/data
+    user: postgres
+    ports:
+      - "5439:5432"
+    stdin_open: true
+    tty: true
+    networks:
+      backend:
+        aliases:
+          - db
+
+  endpoints:
+    container_name: endpoints
+    image: endpoints
+    build:
+      context: .
+      dockerfile: ./endpoints/Dockerfile
+      args:
+        FASTAPI_PORT: 8000
+        IS_LOCAL: 1
+        APP_NAME: endpoints
+        PG_USERNAME: postgres
+        PG_PASSWORD: admin
+        PG_HOST: db
+        PG_PORT: 5432
+        PG_DBNAME: postgres
+        RASA_HOST: http://chatbot
+        RASA_PORT: 5005
+    volumes:
+      - ./data/:/opt/endpoints/data/:rwo
+      - ./data/evidence/:/opt/endpoints/evidence/:rwo
+      - ./data/transactions/:/opt/endpoints/transactions/documents/:rwo
+      - ./data/users/identification:/opt/endpoints/users/identification/:rwo
+      - ./endpoints/endpoints/:/opt/endpoints/endpoints/
+      - ./endpoints/requirements.txt:/opt/endpoints/requirements.txt:rwo
+      - ./shared/:/opt/endpoints/objects/
+    ports:
+      - "8006:8000"
+    stdin_open: true
+    tty: true
+    depends_on: 
+      - db
+    networks:
+      backend:
+        aliases:
+          - endpoints
+  chatbot:
+    container_name: chatbot
+    image: chatbot
+    build:
+      context: .
+      dockerfile: ./chatbot/Dockerfile
+      args:
+        APP_NAME: chatbot
+        RESET_BACKEND: 0 # Set to 1 if want to entirely reset the backend on startup.
+        ENDPOINTS_HOST: http://endpoints
+        ENDPOINTS_PORT: 8000
+        PG_USERNAME: postgres
+        PG_PASSWORD: admin
+        PG_HOST: db
+        PG_PORT: 5432
+        PG_DBNAME: postgres
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+    volumes:
+      - ./data/:/opt/chatbot/data/:rwo
+      - ./chatbot/chatbot/:/opt/chatbot/chatbot/
+      - ./chatbot/clear_cache.sh:/opt/chatbot/clear_cache.sh:rwo
+      - ./chatbot/deploy.sh:/opt/chatbot/deploy.sh:rwo
+      - ./chatbot/model_offload/:/tmp/model_offload/     
+      - ./chatbot/jobs/:/opt/chatbot/jobs/
+      - ./chatbot/requirements.txt:/opt/chatbot/requirements.txt:rwo
+      - ./chatbot/test/:/opt/chatbot/test/
+    ports:
+      - "5005:5005"
+    networks:
+      backend:
+        aliases:
+          - chatbot
+
+networks:
+  backend:
+volumes:
+  db-data:

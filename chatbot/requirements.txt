@@ -1,0 +1,11 @@
+accelerate
+autocorrect
+chatette
+exrex
+httpx
+ipdb
+rasa
+pytest
+transformers
+torch
+tqdm

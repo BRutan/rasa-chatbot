@@ -1,0 +1,421 @@
+version: "3.1"
+intents:
+  - agg_user_info
+  - check_dispute_status
+  - get_user_context
+  - initiate_session
+  - initiate_dispute
+  - initiate_transaction
+  - notify_irrelevant
+  - relevant
+  - restart_conversation
+  - stop
+  - unclear
+  - vendor_context
+responses:
+  # General:
+  utter_greet:
+    #- text: "Welcome to SCRO! The first machine that performs cash protecting legal judgements."
+    - text: "Welcome to SCRO!"
+  utter_unclear:
+    - text: "I do not understand the input."
+  utter_waiting:
+    - text: "Let me know if you would like to anything else."
+  # Transaction:
+  utter_transaction_initiation:
+    - text: "Okay, let's start your transaction."
+  utter_user_has_no_transactions:
+    - text: "It looks like you have no transactions outstanding."
+  utter_ask_buyer:
+    - text: "Who is the buyer?"
+  utter_ask_vendor:
+    - text: "Who is the vendor (their corporation name)?"
+  utter_ask_transaction_amount:
+    - text: "What is the transaction amount?"
+  utter_ask_description:
+    - text: "Please describe the transaction."
+  utter_ask_documentation:
+    - text: "Please provide documentation."
+  utter_load_transaction_form:
+    - text: "Thanks! I have recorded your transaction details."
+  # User:
+  utter_user_not_registered:
+    - text: "It looks like we don't have you registered. Let's get started with that."
+  utter_buyer_registered:
+    - text: "Just registered you."
+  utter_ask_user_name:
+    - text: "What is your full name (first and last)?"
+  utter_ask_user_identification_filename:
+    - text: "Please upload identification."
+  utter_ask_user_email:
+    - text: "What is your email?"
+  utter_ask_user_phone_number:
+    - text: "What is your phone number?"
+  utter_ask_user_address:
+    - text: "What is your address?"
+  utter_ask_user_city:
+    - text: "What city do you live in?"
+  utter_ask_user_state:
+    - text: "What state do you live in?"
+  utter_ask_user_zip_code:
+    - text: "What is your zip code?"
+  utter_ask_user_account_number:
+    - text: "What is the bank account number associated with the transaction?"
+  utter_ask_user_routing_number:
+    - text: "What is the bank account routing number associated with the account?"
+  utter_load_user_information_form:
+    - text: "Thanks! I have recorded your user details."
+  # Vendor:
+  utter_ask_vendor_name:
+    - text: "What is the vendor's full name (first and last)?"
+  utter_ask_vendor_email:
+    - text: "What is the vendor's email?"
+  utter_ask_vendor_phone_number:
+    - text: "What is the vendor's phone number?"
+  utter_ask_vendor_address:
+    - text: "What is the vendor's address?"
+  utter_ask_vendor_city:
+    - text: "What city does the vendor live in?"
+  utter_ask_vendor_state:
+    - text: "What state does the vendor live in?"
+  utter_ask_vendor_zip_code:
+    - text: "What is the vendor's zip code?"
+  utter_ask_vendor_account_number:
+    - text: "What is the vendor's account number for receiving transaction funds?"
+  utter_ask_vendor_routing_number:
+    - text: "What is the vendor's routing number?"
+  utter_ask_corp_name:
+    - text: "What is the vendor's corporate name?"
+  utter_vendor_registered:
+    - text: "Vendor has been registered successfully."
+  utter_load_vendor_information_form:
+    - text: "Thanks! I have recorded the vendor's details."
+  # Dispute:
+  utter_open_dispute:
+    - text: "Sure, let's start gathering the dispute information now."
+  utter_cancelling_dispute:
+    - text: "Cancelling the dispute."
+  utter_gathering_evidence:
+    - text: "Please upload evidence."
+  utter_load_evidence:
+    - text: "Thank you. We are now storing this internally."
+  utter_ask_dispute_vendor:
+    - text: "Which vendor is involved in the dispute?"
+  utter_ask_dispute_description:
+    - text: "Please describe the dispute."
+  utter_ask_dispute_amount:
+    - text: "What amount is in dispute?"
+  utter_ask_evidence_file_name:
+    - text: "Please upload an evidence file or indicate you are finished."
+  utter_load_dispute_form:
+    - text: "We will review the evidence and make a judgement end of day today."
+slots:
+  needs_vendor_registration:
+    type: bool
+    influence_conversation: false
+    initial_value: false
+    mappings:
+      - type: custom
+  # Dispute information:
+  dispute_id: 
+    type: text
+    influence_conversation: false
+    initial_value: false
+    mappings: []
+  has_transactions:
+    type: bool
+    influence_conversation: false
+    initial_value: false
+    mappings: []
+  dispute_amount:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: dispute_form
+          requested_slot: dispute_amount
+  dispute_vendor:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: dispute_form
+          requested_slot: dispute_vendor
+  dispute_vendor_token:
+    type: text
+    influence_conversation: false
+    initial_value: false
+    mappings: []
+  dispute_transaction_id:
+    type: float
+    influence_conversation: false
+    initial_value: false
+    mappings: []
+  dispute_description:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: dispute_form
+          requested_slot: dispute_description
+  evidence_file_name:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: dispute_form
+          requested_slot: evidence_file_name
+  # Transaction information:
+  transaction_id:
+    type: text
+    influence_conversation: true
+    initial_value: ""
+    mappings: []
+  buyer:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: new_transaction_form
+          requested_slot: buyer
+  vendor:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: new_transaction_form
+          requested_slot: vendor
+  description:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: new_transaction_form
+          requested_slot: description
+  transaction_amount:
+    type: float
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: new_transaction_form
+          requested_slot: transaction_amount
+  documentation:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: new_transaction_form
+          requested_slot: documentation
+  # User information:
+  registered:
+    type: bool
+    influence_conversation: true
+    initial_value: false
+    mappings: []
+  user_name:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_user_form
+          requested_slot: user_name
+  user_identification_filename:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_user_form
+          requested_slot: user_identification_filename
+  user_email:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_user_form
+          requested_slot: user_email
+  user_address:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_user_form
+          requested_slot: user_address
+  user_city:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_user_form
+          requested_slot: user_city
+  user_state:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_user_form
+          requested_slot: user_state
+  user_zip_code:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_user_form
+          requested_slot: user_zip_code
+  user_phone_number:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_user_form
+          requested_slot: user_phone_number
+  user_account_number:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_user_form
+          requested_slot: user_account_number
+  user_routing_number:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_user_form
+          requested_slot: user_routing_number
+  # Vendor information:
+  vendor_name:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_vendor_form
+          requested_slot: vendor_name
+  vendor_email:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_vendor_form
+          requested_slot: vendor_email
+  vendor_address:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_vendor_form
+          requested_slot: vendor_address
+  vendor_city:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_vendor_form
+          requested_slot: vendor_city
+  vendor_state:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_vendor_form
+          requested_slot: vendor_state
+  vendor_zip_code:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_vendor_form
+          requested_slot: vendor_zip_code
+  vendor_phone_number:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_vendor_form
+          requested_slot: vendor_phone_number
+  vendor_account_number:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_vendor_form
+          requested_slot: vendor_account_number
+  vendor_routing_number:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_vendor_form
+          requested_slot: vendor_routing_number
+  corp_name:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+        - active_loop: register_vendor_form
+          requested_slot: corp_name
+forms:
+  dispute_form:
+    required_slots:
+      - has_transactions
+      - dispute_vendor
+      - dispute_vendor_token
+      - dispute_description
+      - dispute_amount
+      - dispute_transaction_id
+      - evidence_file_name
+  new_transaction_form:
+    required_slots:
+      - buyer
+      - vendor
+      - transaction_amount
+      - description
+      - documentation
+      - transaction_id
+  register_user_form:
+    required_slots:
+      - user_name
+      - user_identification_filename
+      - user_email
+      - user_address
+      - user_city
+      - user_state
+      - user_zip_code
+      - user_phone_number
+      - user_account_number
+      - user_routing_number
+  register_vendor_form:
+    required_slots:
+      - vendor_name
+      - vendor_email
+      - vendor_address
+      - vendor_city
+      - vendor_state
+      - vendor_zip_code
+      - vendor_phone_number
+      - vendor_account_number
+      - vendor_routing_number
+      - corp_name
+actions:
+  - action_load_transaction_form
+  - action_create_dispute
+  #- action_vendor_interface
+  - action_sarcasm
+  - action_load_user_info
+  - action_load_vendor_info
+  - action_check_buyer_registration
+  - action_check_vendor_registration
+  - action_check_transactions_and_open_dispute
+  - action_restart_conversation
+  - action_output_dispute_judgement
+  - validate_register_user_form
+  - validate_register_vendor_form
+  - validate_new_transaction_form
+  - validate_dispute_form
+  - action_resume_transaction
+  - utter_load_vendor_information_form
+  - utter_vendor_registered
+  - utter_waiting
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: false

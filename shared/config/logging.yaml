@@ -1,0 +1,28 @@
+version: 1
+disable_existing_loggers: false
+formatters:
+  simple:
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: simple
+    stream: ext://sys.stdout
+  logfile:
+    class: logging.handlers.RotatingFileHandler
+    filename: /app/logs/log.log
+    maxBytes: 1048576
+    backupCount: 10
+loggers:
+  scro-endpoints:
+    level: INFO
+    handlers: [console, logfile]
+    propagate: no
+  scro-etl:
+    level: DEBUG
+    handlers: [console, logfile]
+    propagate: no
+root:
+  level: DEBUG
+  handlers: [console,logfile]

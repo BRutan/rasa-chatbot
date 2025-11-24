@@ -1,0 +1,27 @@
+# forms -> slot: "pattern
+register_user_form: 
+  user_name: "^\\s*\\w+\\s+\\w+\\s*$"
+  user_email: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+  user_address: "^\\d+\\s+\\w+(\\s+\\w+)?$"
+  user_city: "^[\\w\\s]+$"
+  user_state: "^[\\w\\s]+$"
+  user_zip_code: "^\\s*\\d{5}(-\\d{4})?\\s*$"
+  user_phone_number: "^\\s*\\d{5}(-\\d{4})?\\s*$"
+  user_account_number: "^\\s*\\d{8,20}\\s*$"
+  user_routing_number: "^\\s*\\d{9}\\s*$"
+register_vendor_form: 
+  user_name: "^\\s*\\w+\\s+\\w+\\s*$"
+  user_email: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+  user_address: "^\\d+\\s+\\w+(\\s+\\w+)?$"
+  user_city: "^[\\w\\s]+$"
+  user_state: "^[\\w\\s]+$"
+  user_zip_code: "^\\s*\\d{5}(-\\d{4})?\\s*$"
+  user_phone_number: "^\\s*\\d{5}(-\\d{4})?\\s*$"
+  user_account_number: "^\\s*\\d{8,20}\\s*$"
+  user_routing_number: "^\\s*\\d{9}\\s*$"
+  corp_name: "^[\\w\\s]+(inc|llc|corp)\\s*$"
+new_transaction_form:
+  buyer: "^\\s*(?P<fn>\\w+)\\s+(?P<ln>\\w+)\\s*$"
+  vendor: "^\\s*(?P<fn>\\w+)\\s+(?P<ln>\\w+)\\s*$"
+  transaction_amount: "^\\s*\\d+(\\.\\d{1,2})\\s*$"
+  description: "^\\s*[\\w\\s]+\\s*$"

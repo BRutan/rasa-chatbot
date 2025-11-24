@@ -1,0 +1,8 @@
+version: "3.1"
+
+stories:
+# Switch to vendor interface:
+#- story: Switch to vendor context (from buyer)
+#  steps:
+#  - intent: vendor_context
+#  - action: action_vendor_interface

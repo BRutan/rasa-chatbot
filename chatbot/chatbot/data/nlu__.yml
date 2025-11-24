@@ -1,0 +1,27 @@
+version: "3.1"
+nlu:
+- intent: initiate_session
+  examples: |
+    - <INITIAL_MESSAGE>
+- intent: restart_conversation
+  examples: |
+    - (Let's|I) want to restart the conversation
+    - restart (the )?conversation
+- intent: initiate_transaction
+  examples: |
+    - I want to (open|make) a transaction
+    - Let's (initiate|start) a transaction
+    - (Start|Initiate) transaction
+- intent: initiate_dispute
+  examples: |
+    - I want to (open|start|initialize) a dispute
+    - (Let's )?(open|start|initialize) a dispute
+    - Start dispute
+- intent: notify_irrelevant
+  examples: |
+    - this is spam
+    - free money now
+- intent: relevant
+  examples: |
+    - I want to check my transaction
+    - can you help with my account
