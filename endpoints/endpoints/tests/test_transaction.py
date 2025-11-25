@@ -21,12 +21,12 @@ _HEADER = {"Authorization": "Token 1"}
 ENDPOINTS_URL = "http://localhost:{port}".format(port=os.environ["FASTAPI_PORT"])
 
 sequence = [("I want to restart the conversation.", ["Conversation has been reset."]),
-            ("<INITIAL_MESSAGE>", ["Welcome to SCRO!"]),
+            ("<INITIAL_MESSAGE>", ["Welcome to Rasa Chatbot!"]),
             ("I want to open a transaction.", ["It looks like we don't have you registered. Let's get started with that.", "What is your full name (first and last)?"]),
             ("Ben Rutan", ["Please upload identification."]),
             ("IMG_0101.jpg", ["What is your email?"]),
-            ("ben@scro.digital", ["What is your address?"]),
-            ("30 Broad St", ["What city do you live in?"]),
+            ("ben@gmail.com", ["What is your address?"]),
+            ("200 Water St", ["What city do you live in?"]),
             ("New york", ["What state do you live in?"]),
             ("NY", ["What is your zip code?"]),
             ("10007", ["What is your phone number?"]),

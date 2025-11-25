@@ -11,15 +11,14 @@ COPY ./chatbot/requirements.txt .
 RUN python3 -m pip install -r requirements.txt
 RUN echo 'export PYTHONPATH=${PYTHONPATH}'
 
-COPY ./chatbot/chatbot/ ./chatbot/
+COPY ./chatbot/bot/ ./bot/
 COPY ./chatbot/test/ ./test/
 COPY ./chatbot/deploy.sh .
 COPY ./chatbot/clear_cache.sh .
 
 # Install additional packages and yq to assist with fixing yaml:
-RUN apt-get update -yqq && apt-get install jq wget sudo -y
-RUN sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && \
-    sudo chmod +x /usr/bin/yq
+RUN apt-get update -o Acquire::ForceIPv4=true -yqq \
+    && apt-get install jq wget sudo -y --no-install-recommends
 
 ARG ENDPOINTS_HOST
 ARG ENDPOINTS_PORT

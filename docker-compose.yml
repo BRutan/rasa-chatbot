@@ -26,6 +26,9 @@ services:
   endpoints:
     container_name: endpoints
     image: endpoints
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     build:
       context: .
       dockerfile: ./endpoints/Dockerfile
@@ -61,6 +64,9 @@ services:
   chatbot:
     container_name: chatbot
     image: chatbot
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     build:
       context: .
       dockerfile: ./chatbot/Dockerfile

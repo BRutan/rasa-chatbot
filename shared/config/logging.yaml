@@ -15,11 +15,11 @@ handlers:
     maxBytes: 1048576
     backupCount: 10
 loggers:
-  scro-endpoints:
+  endpoints:
     level: INFO
     handlers: [console, logfile]
     propagate: no
-  scro-etl:
+  etl:
     level: DEBUG
     handlers: [console, logfile]
     propagate: no

@@ -826,7 +826,7 @@ class ActionVendorContext(Action):
         """
         metadata = await u_funcs.get_vendor_meta(user_token)
         length = (datetime.now() - metadata["timestamp"]).days
-        text = f"Thank you for being a dedicated vendor for {length} days on Scro!"
+        text = f"Thank you for being a dedicated vendor for {length} days!"
         text += "\nWe really appreciate your service"
         if metadata["n_strikes"] == 0:
             text += " with no issues!"

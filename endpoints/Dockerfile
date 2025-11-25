@@ -3,14 +3,12 @@ FROM python:${PYTHON_VERSION}-slim
 
 ENV HOME=/opt/endpoints
 
-# Install system dependencies and Redis
-RUN apt-get update -yqq && \
-    apt-get install -y --no-install-recommends \
+# Install system dependencies:
+RUN apt-get update -o Acquire::ForceIPv4=true -yqq \
+    && apt-get -o Acquire::ForceIPv4=true install -y --no-install-recommends \
     gcc \
     curl \
     build-essential \
-    redis-server \
-    supervisor \
     dos2unix \
     git && rm -rf /var/lib/apt/lists/* && \
     apt update && apt install netcat-traditional
@@ -88,7 +86,6 @@ RUN touch __init__.py && \
     mkdir -p ${TRANS_DOC_DIR} && \
     mkdir -p ${USER_ID_DIR}
 
-COPY ./endpoints/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY ./endpoints/endpoints/ ./endpoints/
 COPY ./endpoints/logs/ /app/logs/
 COPY ./endpoints/entrypoint.sh .

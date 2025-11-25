@@ -15,8 +15,7 @@ intents:
 responses:
   # General:
   utter_greet:
-    #- text: "Welcome to SCRO! The first machine that performs cash protecting legal judgements."
-    - text: "Welcome to SCRO!"
+    - text: "Welcome to Rasa Chatbot!"
   utter_unclear:
     - text: "I do not understand the input."
   utter_waiting:
