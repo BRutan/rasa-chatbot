@@ -1,7 +1,7 @@
 import asyncio
 from fastapi.testclient import TestClient
-from endpoints.functions.backend import BACKEND_CONN
-from endpoints.shared import send_file_to_endpoint
+from functions.backend import BACKEND_CONN
+from shared import send_file_to_endpoint
 import logging
 import json
 import os
@@ -10,7 +10,7 @@ import re
 try:
     from ..main import app
 except ImportError:
-    from endpoints.main import app
+    from main import app
 
 from typing import Any, Dict
 

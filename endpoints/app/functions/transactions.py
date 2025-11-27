@@ -1,10 +1,10 @@
 from asyncpg.pool import PoolConnectionProxy
 from decimal import Decimal
-from endpoints.arg_model.transactions import TransactionCreation, SpecificTransactionLookup, TransactionSearch
+from arg_model.transactions import TransactionCreation, SpecificTransactionLookup, TransactionSearch
 import endpoints.functions.evidence as ev_funcs
-from endpoints.response_model.transactions import TransactionInfo
-from endpoints.functions.backend import BACKEND_CONN, TRANS_DOC_DIR
-from endpoints.shared import async_log_execution, logger, normalize_data
+from response_model.transactions import TransactionInfo
+from functions.backend import BACKEND_CONN, TRANS_DOC_DIR
+from shared import async_log_execution, logger, normalize_data
 import exrex
 from fastapi import File
 from fastapi.exceptions import HTTPException

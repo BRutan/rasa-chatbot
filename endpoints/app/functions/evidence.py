@@ -1,6 +1,6 @@
 from asyncpg.pool import PoolConnectionProxy
-from endpoints.functions.backend import EVIDENCE_DIR
-from endpoints.shared import async_log_execution, logger
+from functions.backend import EVIDENCE_DIR
+from shared import async_log_execution, logger
 from objects.functions.files import is_video, is_image
 from fastapi import File
 import os

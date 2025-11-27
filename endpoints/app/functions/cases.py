@@ -1,8 +1,8 @@
 from asyncpg.pool import PoolConnectionProxy
-from endpoints.arg_model.cases import DisputeInfo, DisputeSearch
-from endpoints.functions.backend import BACKEND_CONN
-from endpoints.response_model.cases import ExistingDisputeInfo
-from endpoints.shared import async_log_execution, logger, normalize_data
+from arg_model.cases import DisputeInfo, DisputeSearch
+from functions.backend import BACKEND_CONN
+from response_model.cases import ExistingDisputeInfo
+from shared import async_log_execution, logger, normalize_data
 from fastapi.exceptions import HTTPException
 import json
 from typing import List, Optional

@@ -1,10 +1,10 @@
-from endpoints.dependencies import get_auth_token_header
+from dependencies import get_auth_token_header
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
-from endpoints.arg_model.users import UserInfo, UserLookup, UserSearch, VendorSearch
-from endpoints.dependencies import logger
-import endpoints.functions.users as user_funcs
-from endpoints.response_model.users import UserStatus, UserBasicInfo, VendorInfo, VendorStatus
-from endpoints.shared import async_log_execution
+from arg_model.users import UserInfo, UserLookup, UserSearch, VendorSearch
+from dependencies import logger
+import functions.users as user_funcs
+from response_model.users import UserStatus, UserBasicInfo, VendorInfo, VendorStatus
+from shared import async_log_execution
 import os
 from typing import List, Optional
 

@@ -1,6 +1,6 @@
 import httpx
 from objects.functions.database import connect_to_backend
-from endpoints.shared import logger, log_execution
+from shared import logger, log_execution
 import os
 import shutil
 

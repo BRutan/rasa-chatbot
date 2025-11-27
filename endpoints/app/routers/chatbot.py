@@ -1,9 +1,9 @@
-from endpoints.dependencies import get_auth_token_header
+from dependencies import get_auth_token_header
 from fastapi import APIRouter, Depends, Request, WebSocket, WebSocketDisconnect
-from endpoints.arg_model.chatbot import ChatbotPrompt
-from endpoints.functions.chatbot import get_conversation_meta, get_sarcasm
-from endpoints.response_model.chatbot import ChatbotResponse
-from endpoints.shared import logger
+from arg_model.chatbot import ChatbotPrompt
+from functions.chatbot import get_conversation_meta, get_sarcasm
+from response_model.chatbot import ChatbotResponse
+from shared import logger
 import httpx
 import json
 import os

@@ -1,6 +1,6 @@
 from asyncpg.pool import PoolConnectionProxy
-from endpoints.functions.backend import RASA_CONVERSATIONS_URL, RASA_TRACKER_URL
-from endpoints.shared import async_log_execution
+from functions.backend import RASA_CONVERSATIONS_URL, RASA_TRACKER_URL
+from shared import async_log_execution
 from httpx import AsyncClient
 import json
 import os

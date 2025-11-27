@@ -1,4 +1,4 @@
-from endpoints.dependencies import get_auth_token_header
+from dependencies import get_auth_token_header
 from fastapi import APIRouter, Depends, Request
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel

@@ -1,5 +1,5 @@
-from endpoints.dependencies import get_auth_token_header
-from endpoints.shared import async_log_execution
+from dependencies import get_auth_token_header
+from shared import async_log_execution
 from fastapi import APIRouter, Depends, HTTPException, Request
 
 

@@ -1,10 +1,10 @@
 from asyncpg.pool import PoolConnectionProxy
-from endpoints.arg_model.cases import DisputeInfo, DisputeLookup, DisputeSearch
-from endpoints.dependencies import get_auth_token_header
-from endpoints.functions.cases import case_exists, create_case, lookup_case
-from endpoints.functions.evidence import load_evidence
-from endpoints.response_model.cases import DisputeStatus, ExistingDisputeInfo
-from endpoints.shared import logger
+from arg_model.cases import DisputeInfo, DisputeLookup, DisputeSearch
+from dependencies import get_auth_token_header
+from functions.cases import case_exists, create_case, lookup_case
+from functions.evidence import load_evidence
+from response_model.cases import DisputeStatus, ExistingDisputeInfo
+from shared import logger
 from fastapi import APIRouter, Depends, File, Form, Request, UploadFile
 from typing import List, Optional
 from typing import Any, List, Optional

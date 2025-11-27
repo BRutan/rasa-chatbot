@@ -1,11 +1,11 @@
 from asyncpg.pool import PoolConnectionProxy
 from fastapi import File
 from fastapi.exceptions import HTTPException
-from endpoints.arg_model.users import UserSearch, UserLookup, UserInfo, VendorSearch, VendorLookup
-from endpoints.functions.backend import BACKEND_CONN, USER_ID_DIR
+from arg_model.users import UserSearch, UserLookup, UserInfo, VendorSearch, VendorLookup
+from functions.backend import BACKEND_CONN, USER_ID_DIR
 import endpoints.functions.evidence as ev_funcs
-from endpoints.response_model.users import UserBasicInfo, VendorInfo
-from endpoints.shared import logger, async_log_execution, normalize_data
+from response_model.users import UserBasicInfo, VendorInfo
+from shared import logger, async_log_execution, normalize_data
 import json
 import os
 from typing import List

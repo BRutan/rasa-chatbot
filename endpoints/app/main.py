@@ -1,9 +1,9 @@
 import asyncpg
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from endpoints.dependencies import logger
-from endpoints.functions.backend import reset_document_storage
-from endpoints.routers import auth, backend, cases, chatbot, transactions, users
+from dependencies import logger
+from functions.backend import reset_document_storage
+from routers import auth, backend, cases, chatbot, transactions, users
 import os
 
 app = FastAPI()
