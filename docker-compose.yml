@@ -15,7 +15,7 @@ services:
       - db-data:/var/lib/postgresql/data
     user: postgres
     ports:
-      - "5439:5432"
+      - "5441:5432"
     stdin_open: true
     tty: true
     networks:
@@ -52,7 +52,7 @@ services:
       - ./endpoints/requirements.txt:/opt/endpoints/requirements.txt:rwo
       - ./shared/:/opt/endpoints/objects/:rwo
     ports:
-      - "8006:8000"
+      - "8007:8000"
     stdin_open: true
     tty: true
     depends_on: 
@@ -94,7 +94,7 @@ services:
       - ./chatbot/requirements.txt:/opt/chatbot/requirements.txt:rwo
       - ./chatbot/test/:/opt/chatbot/test/
     ports:
-      - "5005:5005"
+      - "5006:5005"
     networks:
       backend:
         aliases:

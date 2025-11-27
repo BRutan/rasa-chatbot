@@ -1,8 +1,6 @@
 *.pyc
 __pycache__/
 data/
-ml/repos/*
-etl/logs/*
 chatbot/bot/.rasa
 !chatbot/bot/actions
 !chatbot/bot/custom_components

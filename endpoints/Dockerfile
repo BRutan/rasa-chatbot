@@ -75,8 +75,8 @@ RUN echo "export APP_NAME=${APP_NAME}" >> ~/.bashrc && \
     echo "export TRANS_DOC_DIR=${TRANS_DOC_DIR}" >> ~/.zshrc && \
     echo "export USER_ID_DIR=${USER_ID_DIR}" >> ~/.bashrc && \
     echo "export USER_ID_DIR=${USER_ID_DIR}" >> ~/.zshrc && \
-    echo "alias start-endpoints='fastapi dev endpoints/main.py --host 0.0.0.0 --port ${FASTAPI_PORT}'" >> ~/.bashrc && \
-    echo "alias start-endpoints='fastapi dev endpoints/main.py --host 0.0.0.0 --port ${FASTAPI_PORT}'" >> ~/.zshrc
+    echo "alias start-endpoints='fastapi dev main.py --host 0.0.0.0 --port ${FASTAPI_PORT}'" >> ~/.bashrc && \
+    echo "alias start-endpoints='fastapi dev main.py --host 0.0.0.0 --port ${FASTAPI_PORT}'" >> ~/.zshrc
 
 EXPOSE ${FASTAPI_PORT}
 
@@ -86,7 +86,7 @@ RUN touch __init__.py && \
     mkdir -p ${TRANS_DOC_DIR} && \
     mkdir -p ${USER_ID_DIR}
 
-COPY ./endpoints/endpoints/ ./endpoints/
+COPY ./endpoints/app/ .
 COPY ./endpoints/logs/ /app/logs/
 COPY ./endpoints/entrypoint.sh .
 COPY ./shared/ ./objects/

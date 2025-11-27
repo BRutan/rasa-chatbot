@@ -15,10 +15,11 @@ COPY ./chatbot/bot/ ./bot/
 COPY ./chatbot/test/ ./test/
 COPY ./chatbot/deploy.sh .
 COPY ./chatbot/clear_cache.sh .
+RUN chmod +x deploy.sh clear_cache.sh
 
 # Install additional packages and yq to assist with fixing yaml:
 RUN apt-get update -o Acquire::ForceIPv4=true -yqq \
-    && apt-get install jq wget sudo -y --no-install-recommends
+    && apt-get install -o Acquire::ForceIPv4=true jq wget sudo -y --no-install-recommends
 
 ARG ENDPOINTS_HOST
 ARG ENDPOINTS_PORT
