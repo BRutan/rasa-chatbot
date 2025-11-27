@@ -45,12 +45,12 @@ services:
         RASA_PORT: 5005
     volumes:
       - ./data/:/opt/endpoints/data/:rwo
-      - ./data/evidence/:/opt/endpoints/evidence/:rwo
-      - ./data/transactions/:/opt/endpoints/transactions/documents/:rwo
-      - ./data/users/identification:/opt/endpoints/users/identification/:rwo
-      - ./endpoints/endpoints/:/opt/endpoints/endpoints/
+      - ./data/sample_files/transactions/:/opt/endpoints/transactions/documents/:rwo
+      - ./data/sample_files/users/identification/:/opt/endpoints/users/identification/:rwo
+      - ./data/sample_files/evidence/:/opt/endpoints/evidence/:rwo
+      - ./endpoints/endpoints/:/opt/endpoints/endpoints/:rwo
       - ./endpoints/requirements.txt:/opt/endpoints/requirements.txt:rwo
-      - ./shared/:/opt/endpoints/objects/
+      - ./shared/:/opt/endpoints/objects/:rwo
     ports:
       - "8006:8000"
     stdin_open: true

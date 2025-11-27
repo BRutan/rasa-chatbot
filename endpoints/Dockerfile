@@ -90,9 +90,10 @@ COPY ./endpoints/endpoints/ ./endpoints/
 COPY ./endpoints/logs/ /app/logs/
 COPY ./endpoints/entrypoint.sh .
 COPY ./shared/ ./objects/
-ADD ./data/transactions/ ${TRANS_DOC_DIR}
-ADD ./data/users/identification ${USER_ID_DIR}
-ADD ./data/evidence/ ${EVIDENCE_DIR}
+ADD ./data/sample_files/transactions/ ${TRANS_DOC_DIR}
+ADD ./data/sample_files/users/identification/ ${USER_ID_DIR}
+ADD ./data/sample_files/evidence/ ${EVIDENCE_DIR}
+
 RUN chmod +x entrypoint.sh && dos2unix entrypoint.sh
 
-#ENTRYPOINT [ "./entrypoint.sh" ]
+ENTRYPOINT [ "./entrypoint.sh" ]

@@ -59,4 +59,4 @@ RUN echo 'export ENDPOINTS_HOST=${ENDPOINTS_HOST}' >> ~/.bashrc && \
 
 EXPOSE 5005
 
-#ENTRYPOINT [ '/opt/chatbot/deploy.sh' ]
+ENTRYPOINT [ '/opt/chatbot/deploy.sh' ]
